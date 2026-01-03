@@ -1,5 +1,7 @@
 import Users from "../models/userCollection.js";
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+const jwtSecret = "HellBoy1234@"
 
 const registerUser = async(req,res)=>{
     // res.send("register function is running")
@@ -8,6 +10,7 @@ const registerUser = async(req,res)=>{
    try {
      let salt = await bcrypt.genSalt(10);
     let hashPassword = await bcrypt.hash(password, salt)
+    // hash  --> can not be decoded //"awdjgawhdd567890"
 
     let data = await Users.insertOne({
         name:name,
@@ -23,13 +26,41 @@ const registerUser = async(req,res)=>{
 
 }
 const loginUser = async(req,res)=>{
-    res.send("login function is running")
+    // res.send("login function is running")
+    const {email , password} = req.body;
+    try {
+        let existUser = await Users.findOne({email});  // {_id, name, email, password} or null
+
+    if(existUser){
+        let comparePass = await bcrypt.compare(password , existUser.password); //true or false
+        console.log(comparePass)
+        if(comparePass){
+            let token = jwt.sign({ _id: existUser._id },jwtSecret);  //
+            console.log(token)  //ecoded form  (can be decoded)
+            return res.status(200).json({msg:"user logged in successfully", token:token})
+        }
+        else{
+            res.status(401).json({msg:"wrong password"})
+        }
+    }
+    else{
+         res.status(401).json({msg:"user not found"})
+    }
+    } catch (error) {
+        res.status(500).json({msg:"error in login user", error:error.message})
+    }
 }
 const updateUser = async(req,res)=>{
-    res.send("update function is running")
+   
 }
 const deleteUser = async(req,res)=>{
-    res.send("delete function is running")
+    try {
+         const {id} = req.params
+    let deleteuser = await Users.deleteOne({_id:id});
+    res.status(200).json({msg:"user deleted successfully"})
+    } catch (error) {
+        res.status(500).json({msg:"error in deleting user", error:error.message})
+    }
 }
 
 export {

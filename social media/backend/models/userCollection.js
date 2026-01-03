@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 let userSchema = new mongoose.Schema({
     name:{
         type:String,
-        required:true,
+        required:[true,"name is required"],
         minLength:2,
         maxLength:100
     },
     email:{
         type:String,
         required:true,
-        unique:true
+        unique:[true,"email already exists"]
     },
     password:{
         type:String,
