@@ -44,18 +44,31 @@ const loginUser = async(req,res)=>{
         }
     }
     else{
-         res.status(401).json({msg:"user not found"})
+         res.status(401).json({msg:"user not found"});
     }
     } catch (error) {
         res.status(500).json({msg:"error in login user", error:error.message})
     }
 }
 const updateUser = async(req,res)=>{
-   
+    console.log(req.user);  //-->req --> params,query, body ,user
+    const {name,password} = req.body;
+    let obj = {};
+    if(name){
+       obj.name = name 
+    }
+    if(password){
+        let salt = bcrypt.genSaltSync(10)
+        let hashedPassword = bcrypt.genSaltSync(password, salt)
+       obj.password = hashedPassword
+    }
+    let data = await Users.updatedOne({_id:req.user} , {$set:obj});
+    res.status(200).json({msg:"user updated successfully"})
 }
 const deleteUser = async(req,res)=>{
     try {
-         const {id} = req.params
+        //  const {id} = req.params
+        let id = req.user; //
     let deleteuser = await Users.deleteOne({_id:id});
     res.status(200).json({msg:"user deleted successfully"})
     } catch (error) {
