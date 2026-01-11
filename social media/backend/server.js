@@ -3,9 +3,11 @@ const app = express();
 const port = 8090;
 import connectToDb from './config/db.js';
 import userRoutes from './routes/userRoutes.js'
+import cors from 'cors'
 
 connectToDb()
 
+app.use(cors())
 app.use(express.json())
 app.get('/',(req,res)=>{
     res.send('welcome page')

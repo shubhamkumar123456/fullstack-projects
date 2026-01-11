@@ -50,6 +50,12 @@ const loginUser = async(req,res)=>{
         res.status(500).json({msg:"error in login user", error:error.message})
     }
 }
+
+const getUser = async(req,res)=>{
+     let id = req.user;
+     let data = await Users.findById(id);
+     res.json({msg:"data fetched successfully" , user:data});
+}
 const updateUser = async(req,res)=>{
     console.log(req.user);  //-->req --> params,query, body ,user
     const {name,password} = req.body;
@@ -80,5 +86,6 @@ export {
     registerUser,
     loginUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser
 }
