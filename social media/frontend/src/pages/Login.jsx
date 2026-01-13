@@ -2,8 +2,12 @@ import React, { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../store/userSlice'
 
 const Login = () => {
+
+  let dispatch = useDispatch()
   let emailRef = useRef()
   let passwordRef = useRef()
 
@@ -17,11 +21,12 @@ const Login = () => {
     }
     try {
       let res = await axios.post('http://localhost:8090/users/login',obj);
-    console.log(res)
+    console.log(res)  // res.data  --> {msg, token}
     if(res.status==200){
-      localStorage.setItem('divaToken', res.data.token);
-      toast.success(res.data.msg, {position:"top-center"})
-      navigate('/')
+      dispatch(loginUser(res.data.token))
+      toast.success(res.data.msg, {position:"top-center"})  // {msg ,token}
+      
+
     }
     } catch (error) {
       console.log(error) //{}
