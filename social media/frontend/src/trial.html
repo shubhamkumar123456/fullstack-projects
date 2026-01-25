@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <img src="" alt="">
+    <input multiple  id="file" type="file" >
+    <button onclick="handleSubmit()">submit</button>
+
+    <script>
+        let inputTag = document.getElementById('file');
+        let imageTag = document.querySelector('img')
+        // function handleSubmit(){
+        //     // console.log("running")
+        //     let files = inputTag.files[0]; //file object
+        //     console.log(files)
+
+        //     // imageTag.src = inputTag.files[0]
+        //     imageTag.src = URL.createObjectURL(files)
+        //     console.log(imageTag)
+            
+        // }
+        let body = document.querySelector('body')
+
+        // function handleSubmit(){
+        //     let files = inputTag.files;
+        //     let fileArr = [...files]
+        //     console.log(fileArr)
+
+        //     for(let i = 0; i<fileArr.length; i++){
+        //         let imageTg = document.createElement('img')
+        //         imageTg.src = URL.createObjectURL(fileArr[i]);
+        //         imageTg.style.width='300px'
+        //         body.append(imageTg)
+
+        //     }
+        // }
+
+        // Amazon cloud servers  --> paid
+        // Cloudinary --> free --> apki files to upload krta hai apne server and return krta hai ek live url
+        
+        // https://www.shutterstock.com/image-photo/sun-sets-behind-mountain-ranges-600nw-2479236003.jpg
+
+        // cloudName --> ddayz7slx
+        // uplaodPreset --> socialMedia
+    </script>
+</body>
+</html>
