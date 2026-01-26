@@ -3,7 +3,8 @@ const app = express();
 const port = 8090;
 import connectToDb from './config/db.js';
 import userRoutes from './routes/userRoutes.js'
-import cors from 'cors'
+import postRoutes from './routes/postRoutes.js'
+ import cors from 'cors'
 
 connectToDb()
 
@@ -15,6 +16,8 @@ app.get('/',(req,res)=>{
 
 
 app.use('/users',userRoutes)
+app.use('/posts',postRoutes)
+
 
 
 app.listen(port, ()=>{
