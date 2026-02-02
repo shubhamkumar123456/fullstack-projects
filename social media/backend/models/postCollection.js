@@ -3,9 +3,7 @@ const postSchema = new mongoose.Schema({
     title:{
         type:String
     },
-    file:{
-        type:String
-    },
+    file:[],
     userId:{
         type:String,
         required:true,
