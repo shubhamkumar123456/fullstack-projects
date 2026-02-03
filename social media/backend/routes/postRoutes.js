@@ -7,3 +7,5 @@ router.post('/create',varifyToken, createPost)
 router.delete('/delete/:id', deletePost);
 
 export default router;
+
+// this is a router page
